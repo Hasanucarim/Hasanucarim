@@ -1,19 +1,26 @@
 package Sigleton_Design_Pattern;
 
-public class Singleton {
-    private static Singleton singleton = new Singleton();
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
 
-    private static int count;
-    private String name;
+public class Singleton {
+    private static Singleton singleton;
+    private static WebDriver driver;
+
 
     private Singleton() {
-        count++;
-        name = "Singleton" + count;
+        driver = WebDriverManager.chromiumdriver().create();
+        driver.get("https://www.ebay.com");
+        driver.close();
     }
-    public static Singleton getInstance() {
+    public static Singleton getISingleton() {
+        if(singleton == null)
+            singleton = new Singleton();
         return singleton;
     }
-    public void printName() {
-        System.out.println(name);
+
+
+    public static WebDriver getDriver() {
+        return driver;
     }
 }
